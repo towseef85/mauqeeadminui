@@ -1,0 +1,9 @@
+{
+    "cms":"CMS",
+    "products":"Products",
+    "loginemail":"Email",
+    "loginpassword":"Password",
+    "rememberme":"Remember Me",
+    "forgetpassword":"Forget Password",
+    "loginbtn":"Login In"
+}
