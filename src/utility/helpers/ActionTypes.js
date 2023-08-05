@@ -4,3 +4,4 @@ export const FETCH_SUCCESS = 'fetch_success';
 export const FETCH_ERROR = 'fetch_error';
 export const SHOW_MESSAGE = 'show_message';
 export const HIDE_MESSAGE = 'hide_message';
+export const BRAND_LIST ="brand_list";

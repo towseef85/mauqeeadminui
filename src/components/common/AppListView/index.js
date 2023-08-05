@@ -6,7 +6,7 @@ import AppPagination from "../../AppPagination";
 import clsx from "clsx";
 import QueueAnim from 'rc-queue-anim';
 
-export default function AppListView({
+function AppListView({
   btntitle,
   onClick,
   data,
@@ -16,6 +16,7 @@ export default function AppListView({
   icon,
   page,
   onChange,
+  pagination,
   ...rest
 }) {
   const columnsList =[{
@@ -45,13 +46,13 @@ export default function AppListView({
               {btntitle}
             </Button>
 
-            <AppPagination
+            {/* <AppPagination
               className="order-header-pagination"
               pageSize={10}
               count={10}
               page={page}
               onChange={onChange}
-            />
+            /> */}
           </div>
         </div>
       </div>
@@ -73,10 +74,12 @@ export default function AppListView({
           columns={columnsList}
           dataSource={data}
           rowKey="id"
-          //pagination={pagination}
+          
           {...rest}
         />
       </div>
     </>
   );
 }
+
+export default React.memo(AppListView)

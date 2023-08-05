@@ -5,13 +5,17 @@ import AppContainer from '../../AppContainer'
 import AppIconButton from '../AppIconButton'
 import { useNavigate } from 'react-router-dom'
 import {BiArrowBack} from 'react-icons/bi';
+import { Button } from 'antd'
+import { PlusCircleOutlined } from '@ant-design/icons'
 
 export default function AppCreateView(
     {
         metaTitle,
         pageTitle,
         tooltiptitle,
-        children
+        children,
+        handleAdd,
+        btnTitle
 
     }
 ) {
@@ -29,6 +33,9 @@ export default function AppCreateView(
             onClick={() => navigate(-1)}
             />
             <h5 className='mb-0 text-truncate'>{tooltiptitle}</h5>
+            <div className='mail-detail-header-action'>
+                <Button htmlType='submit' type='primary' icon={<PlusCircleOutlined/>} onClick={handleAdd}>{btnTitle}</Button>
+            </div>
     </div>
     <div className='apps-content-container isDetailView'>
     <div className='mail-detail-body'>

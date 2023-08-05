@@ -1,5 +1,18 @@
 @import '../../../assets/styles/variable';
 
+.apps-header {
+  padding: 4px 24px;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  border-bottom: @border-style-base @border-width-base @border-color-base;
+  width: 100%;
+
+  @media screen and (min-width: @screen-md) {
+    min-height: 64px;
+  }
+}
+
 .mail-detail {
     height: 100%;
     display: flex;
@@ -201,4 +214,15 @@
   .order-id {
     text-decoration: underline;
     color: @primary-color;
+  }
+
+  .mail-detail-header-action {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  
+    [dir=rtl] & {
+      margin-left: 0;
+      margin-right: auto;
+    }
   }
