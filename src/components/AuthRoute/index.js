@@ -4,7 +4,7 @@ import SignIn from '../../pages/Auth'
 import Router from '../../Router'
 
 
-export default function AuthRoute() {
+ function AuthRoute() {
     const {isAuthenticated} = useAuthUser()
 
   return (
@@ -17,3 +17,4 @@ export default function AuthRoute() {
     </>
   )
 }
+export default React.memo(AuthRoute)

@@ -22,7 +22,6 @@ export default function AppCreateView(
     const navigate= useNavigate()
   return (
     <>
-    <AppPageMetadata title={metaTitle}/>
     <AppContainer title={pageTitle} type='bottom' fullView>
     <div className='mail-detail'>
     <div className="apps-header">

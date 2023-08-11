@@ -6,3 +6,5 @@ export default function AuthLayout({children}) {
     const {isLoading} = useAuthUser()
   return isLoading ? <AppLoader/> : <>{children}</>
 }
+
+

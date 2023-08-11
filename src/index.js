@@ -5,7 +5,6 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import './assets/styles/vendors/index.css'
-import Router from './Router';
 import configureStore from './utility/redux/store';
 import AppContextProvider from './utility/AppContextProvider';
 import AppThemeProvider from './utility/AppContextProvider/AppThemeProvider';
@@ -18,7 +17,6 @@ import AuthLayout from './components/AuthLayout';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const store = configureStore() 
 root.render(
-  <React.StrictMode>
     <AppContextProvider>
       <Provider store={store}>
       <AppThemeProvider>
@@ -34,7 +32,6 @@ root.render(
       </AppThemeProvider>
       </Provider>
     </AppContextProvider>
-  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

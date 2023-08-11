@@ -62,7 +62,8 @@ function AppListView({
           paddingBottom: 10,
         }}
         className="apps-content-container"
-      >
+      >{
+        data &&
         <QueueAnim
           component={Table}
           type="left"
@@ -77,6 +78,7 @@ function AppListView({
           
           {...rest}
         />
+      }
       </div>
     </>
   );

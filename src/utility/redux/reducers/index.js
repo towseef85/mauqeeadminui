@@ -1,10 +1,11 @@
 import {combineReducers} from 'redux';
 import  commonReducer from './Common'
-import brandReducer from './Brands';
+import catalogReducer from './Catalog';
+// import brandReducer from './Brands';
 
 const reducers = () => combineReducers({
     common:commonReducer,
-    brands:brandReducer
+    catalog:catalogReducer
 })
 
 export default reducers;

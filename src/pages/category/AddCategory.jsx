@@ -1,96 +1,59 @@
 import React, { useState, useRef, useEffect } from "react";
 import AppCreateView from "../../components/common/AppCreateView";
-import { Button, Col, Form, Row, Input, Switch, Space, Image } from "antd";
-import { DeleteOutlined } from "@ant-design/icons";
-import { useDispatch } from "react-redux";
 import {
-  onPostBrands,
-  onGetSingleBrand,
-  onEditBrand,
-} from "../../utility/redux/actions";
+  Button,
+  Col,
+  Form,
+  Row,
+  Input,
+  Switch,
+  Space,
+  Image,
+  Upload,
+} from "antd";
+import { UploadOutlined } from "@ant-design/icons";
+import { useDispatch } from "react-redux";
+import { onPost, onEdit } from "../../utility/redux/actions";
 import { v4 as uuid } from "uuid";
 import { useParams } from "react-router-dom";
 
-export default function AddBrand() {
+export default function AddCategory() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const uploadref = useRef();
   const [fileList, setFileList] = useState(null);
   const [showInHomePage, setShowInHomePage] = useState(false);
-  const [singleBrand, setSingleBrand] = useState(null);
-  const [brandform] = Form.useForm();
+  const [categoryform] = Form.useForm();
   const onFinish = () => {
-    brandform
+    debugger;
+    categoryform
       .validateFields()
       .then((values) => {
         if (id) {
-          let newValues = {
-            ...values,
-            imageData: fileList,
-            id: singleBrand.id,
-          };
-          dispatch(onEditBrand(newValues));
-          navigator(-1);
-          return;
+          console.log(values);
+        } else {
+          let newValues = { ...values, imageData: fileList, id: uuid() };
+          dispatch(
+            onPost("Category", newValues, "Category Added Successfully")
+          );
         }
-        let newValues = { ...values, imageData: fileList, id: uuid() };
-        dispatch(onPostBrands(newValues));
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        console.log(error);
       });
   };
   const onFinishFailed = () => {};
 
-  useEffect(() => {
-    if (id) {
-      dispatch(
-        onGetSingleBrand(id, setSingleBrand, setFileList, setShowInHomePage)
-      );
-    }
-  }, [id]);
-
-  if (id && singleBrand !== null) {
-    brandform.setFieldsValue({
-      engName: singleBrand.engName,
-      otherName: singleBrand.otherName,
-      description: singleBrand.description,
-      displayOrder: singleBrand.displayOrder,
-      published: singleBrand.published,
-      showOnHomepage: singleBrand.showOnHomepage,
-    });
-  }
-
-  const convertToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
-
-  const handleFileUpload = async (e) => {
-    const file = e.target.files[0];
-    const base64 = await convertToBase64(file);
-    setFileList(base64);
-  };
-  console.log("fileList", fileList);
   return (
     <AppCreateView
-      metaTitle="Brands"
-      pageTitle={id ? "Update Brand" : "Add Brand"}
-      tooltiptitle={id ? "Update Brand" : "Add Brand"}
+      metaTitle="Categorys"
+      pageTitle={id ? "Update Category" : "Add Category"}
+      tooltiptitle={id ? "Update Category" : "Add Category"}
       handleAdd={onFinish}
-      btnTitle={id ? "Update Brand" : "Add Brand"}
+      btnTitle={id ? "Update Category" : "Add Category"}
     >
       <Form
         name="basic"
-        form={brandform}
+        form={categoryform}
         onFinish={onFinish}
         labelCol={{
           span: 8,
@@ -109,17 +72,19 @@ export default function AddBrand() {
               rules={[
                 {
                   required: true,
-                  message: "Please enter Brand Name",
+                  message: "Please enter Category Name",
                 },
               ]}
             >
               <Input placeholder="English Name" />
             </Form.Item>
 
-            <Form.Item label="Description" name="description">
+            <Form.Item label="Meta Description" name="metaDescription">
               <Input.TextArea rows={2} />
             </Form.Item>
-
+            <Form.Item label="Meta Title" name="metaTitle">
+              <Input placeholder="Meta Title" />
+            </Form.Item>
             <Form.Item
               label="Display Order"
               name="displayOrder"
@@ -130,25 +95,66 @@ export default function AddBrand() {
                 },
               ]}
             >
-              <Input type="number" placeholder="Other Name" />
+              <Input type="number" placeholder="Display Order" />
             </Form.Item>
             <Form.Item
               label="Image"
               name="imageData"
+              extra="Image size should not exceed more than 2 MB"
+              valuePropName="fileList"
+              getValueFromEvent={(e) => {
+                return e?.fileList;
+              }}
               rules={[
                 {
-                  required: showInHomePage || id ? false : true,
+                  required: showInHomePage || !!id,
                   message: "Please Upload Image",
+                },
+                {
+                  validator(_, fileList) {
+                    return new Promise((resolve, reject) => {
+                      if (fileList && fileList[0]?.size > 30000) {
+                        reject("File size exceeded");
+                      } else {
+                        resolve("success");
+                      }
+                    });
+                  },
                 },
               ]}
             >
-              <input
+              {/* <input
                 value={fileList}
                 type="file"
                 ref={uploadref}
-                onChange={(e) => handleFileUpload(e)}
                 accept=".jpeg,.png,.jpg"
-              />
+              /> */}
+              <Upload
+                maxCount={1}
+                fileList="picture-card"
+                accept=".jpg,.jpeg,.png"
+                beforeUpload={(file) => {
+                  if (file.size > 30000) {
+                    console.log("File size exceeded");
+                    return false;
+                  } else {
+                    const fileReader = new FileReader();
+                    fileReader.readAsDataURL(file);
+                    fileReader.onload = () => {
+                      setFileList(fileReader.result);
+                    };
+                    fileReader.onerror = (error) => {
+                      console.log(error);
+                    };
+                    return false;
+                  }
+                }}
+                onRemove={(file) => {
+                  setFileList(null);
+                }}
+              >
+                <Button icon={<UploadOutlined />}>Upload Image</Button>
+              </Upload>
             </Form.Item>
           </Col>
           <Col sm={12} xs={12} md={12}>
@@ -158,11 +164,14 @@ export default function AddBrand() {
               rules={[
                 {
                   required: true,
-                  message: "Please enter Brand Name",
+                  message: "Please enter Category Name",
                 },
               ]}
             >
               <Input placeholder="Other Name" />
+            </Form.Item>
+            <Form.Item label="Meta Keywords" name="metaKeywords">
+              <Input.TextArea rows={2} />
             </Form.Item>
             <Form.Item
               label="Publish"
@@ -192,15 +201,6 @@ export default function AddBrand() {
               <Col offset={6} span={6}>
                 <Space direction="vertical" align="center">
                   <Image src={fileList} width={80} height={80} />
-                  <Button
-                    icon={<DeleteOutlined />}
-                    onClick={() => {
-                      setFileList("");
-                      brandform.setFieldsValue({ imageData: "" });
-                    }}
-                  >
-                    Delete
-                  </Button>
                 </Space>
               </Col>
             )}

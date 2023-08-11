@@ -22,6 +22,7 @@ const AuthContextProvider=({children})=>{
         isAuthenticated: false,
         isLoading: true,
       });
+      console.log("isloading", authData.isLoading)
       const dispatch = useDispatch();
       useEffect(() => {
         const getAuthUser = () => {
@@ -40,6 +41,7 @@ const AuthContextProvider=({children})=>{
           httpApi
             .get('Users/CurrentUser')
             .then(({data}) =>
+            
               setJWTAuthData({
                 user: data,
                 isLoading: false,

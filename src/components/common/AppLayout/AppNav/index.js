@@ -32,7 +32,7 @@ export default function AppNavbar() {
                 key: 7,
                 type: 'item',
                 icon: <SkinOutlined />,
-                label: "Category",
+                label:<Link to="/catalog/category">Category</Link> ,
               },
               {
                 key: 8,
@@ -44,8 +44,14 @@ export default function AppNavbar() {
                 key: 9,
                 type: 'item',
                 icon:<LaptopOutlined/>,
-                label: <IntlMessages id='products'/>,
+                label:<Link to='/catalog/products'><IntlMessages id='products'/></Link> ,
               },
+              {
+                key: 10,
+                type: 'item',
+                icon:<LaptopOutlined/>,
+                label:<Link to='/catalog/product/settings'>Product Settings</Link> ,
+              }
             ],
           },
         {

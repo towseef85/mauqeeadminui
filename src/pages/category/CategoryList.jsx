@@ -2,24 +2,24 @@ import React, { useState } from "react";
 import AppListView from "../../components/common/AppListView";
 import { useNavigate } from "react-router-dom";
 import { Image, Space, Tag } from "antd";
-import { onDeleteBrand } from "../../utility/redux/actions";
+import { onDelete, onDeleteBrand } from "../../utility/redux/actions";
 import { useDispatch } from "react-redux";
 import {
   AppEditButton,
   AppViewButton,
   AppDeleteButton,
 } from "../../components/common/AppListView/AppListButton";
-export default function BrandList({ brandList, loading }) {
+
+export default function CategoryList({ categoryList, loading }) {
   const dispatch = useDispatch();
-  console.log("brandList", brandList);
   const [page, setPage] = useState(0);
   const navigate = useNavigate();
   const onChange = (page) => {
     setPage(page);
   };
 
-  const DeleteBrand = (id) => {
-    dispatch(onDeleteBrand(id));
+  const DeleteCategory = (id) => {
+    dispatch(onDelete("Category", id, "Category Deleted Successfully!"));
     window.location.reload();
   };
   const columns = [
@@ -61,12 +61,12 @@ export default function BrandList({ brandList, loading }) {
       key: "id",
       render: (data) => (
         <Space>
-          <AppEditButton editTooltiptitle="Edit Brand" data={data} />
-          <AppViewButton detailsTooltiptitle="Brand Details" data={data} />
+          <AppEditButton editTooltiptitle="Edit Category" data={data} />
+          <AppViewButton detailsTooltiptitle="Category Details" data={data} />
           <AppDeleteButton
-            deleteTooltiptitle="Delete Brand"
+            deleteTooltiptitle="Category Brand"
             data={data}
-            onDelete={() => DeleteBrand(data)}
+            onDelete={() => DeleteCategory(data)}
           />
         </Space>
       ),
@@ -74,10 +74,10 @@ export default function BrandList({ brandList, loading }) {
   ];
   return (
     <AppListView
-      btntitle="Add Brand"
+      btntitle="Add Category"
       onClick={() => navigate("create")}
       columns={columns}
-      data={brandList}
+      data={categoryList}
       page={page}
       onChange={onChange}
       loading={loading}
