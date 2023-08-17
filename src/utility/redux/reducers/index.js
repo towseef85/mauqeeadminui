@@ -3,7 +3,7 @@ import  commonReducer from './Common'
 import catalogReducer from './Catalog';
 // import brandReducer from './Brands';
 
-const reducers = () => combineReducers({
+const reducers = (history) => combineReducers({
     common:commonReducer,
     catalog:catalogReducer
 })

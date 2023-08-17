@@ -73,14 +73,18 @@ export default function BrandList({ brandList, loading }) {
     },
   ];
   return (
-    <AppListView
-      btntitle="Add Brand"
-      onClick={() => navigate("create")}
-      columns={columns}
-      data={brandList}
-      page={page}
-      onChange={onChange}
-      loading={loading}
-    />
+    <>
+      {brandList && (
+        <AppListView
+          btntitle="Add Brand"
+          onClick={() => navigate("create")}
+          columns={columns}
+          data={brandList}
+          page={page}
+          onChange={onChange}
+          loading={loading}
+        />
+      )}
+    </>
   );
 }

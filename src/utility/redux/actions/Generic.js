@@ -18,6 +18,23 @@ export const onGetList=(controller, type)=>{
         })
     }
 }
+export const onGetListWithState=(controller, type, setState)=>{
+  return(dispatch)=>{
+      dispatch({type: FETCH_START});
+      httpApi.get(controller).then((data)=>{
+          if(data.status === 200){
+              dispatch({type:FETCH_SUCCESS})
+              dispatch({type:type, payload:data.data})
+              setState(data.data)
+          }
+          else{
+              dispatch({type:FETCH_ERROR, payload:"Something went wrong"})
+          }
+      }).catch((err)=>{
+          dispatch({type:FETCH_ERROR, payload:err.message})
+      })
+  }
+}
 
 export const onPost=(controller,newValues, message)=>{
     return (dispatch) => {

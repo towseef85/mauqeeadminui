@@ -1,8 +1,8 @@
 import React from "react";
 import "./index.style.less";
-import { Button, Table, Input } from "antd";
-import { PlusCircleOutlined } from "@ant-design/icons";
-import AppPagination from "../../AppPagination";
+import { Button, Table, Input, Space } from "antd";
+import { BackwardOutlined, PlusCircleOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 import QueueAnim from 'rc-queue-anim';
 
@@ -17,8 +17,10 @@ function AppListView({
   page,
   onChange,
   pagination,
+  hasbackButton = false,
   ...rest
 }) {
+  const navigator = useNavigate()
   const columnsList =[{
     title:'#',
     dataIndex:'id',
@@ -38,6 +40,8 @@ function AppListView({
             <Input type="search" />
           </div>
           <div className="order-header-right">
+            <Space>
+
             <Button
               type="primary"
               onClick={onClick}
@@ -45,6 +49,18 @@ function AppListView({
             >
               {btntitle}
             </Button>
+            {
+              hasbackButton &&
+
+            <Button
+              type="default"
+              onClick={()=>navigator(-1)}
+              icon={<BackwardOutlined/>}
+              >
+                Go Back
+              </Button>
+            }
+            </Space>
 
             {/* <AppPagination
               className="order-header-pagination"

@@ -54,6 +54,38 @@ export default function AppNavbar() {
               }
             ],
           },
+          {
+            key: 1,
+           
+            type:'group',
+            label: "Sales",
+            children: [
+              {
+                key: 2,
+                icon: <PicRightOutlined />,
+                type: 'item',
+                label: <Link to="/cms/slider">Customers</Link>
+              },
+              {
+                key: 3,
+                icon:<NotificationOutlined/>,
+                type: 'item',
+                label: "Orders",
+              },
+              {
+                key: 4,
+                icon:<NodeExpandOutlined />,
+                type: 'item',
+                label: "Promotions",
+              },
+              {
+                key: 5,
+                type: 'item',
+                icon:<ContactsOutlined />,
+                label: "Payments",
+              },
+            ],
+          },
         {
           key: 1,
          

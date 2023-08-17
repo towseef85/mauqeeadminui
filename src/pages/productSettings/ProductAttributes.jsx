@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   AppDeleteButton,
   AppEditButton,
@@ -6,11 +6,19 @@ import {
 } from "../../components/common/AppListView/AppListButton";
 import AppListView from "../../components/common/AppListView";
 import AppContainer from "../../components/AppContainer";
+import { useDispatch, useSelector } from "react-redux";
 import { Space, Tag } from "antd";
 import AddProductAttribute from "./components/AddProductAttribute";
+import { onGetList } from "../../utility/redux/actions";
+import { PRODUCTATTRIBUTE_LIST } from "../../utility/helpers/ActionTypes";
 
 export default function ProductAttributes() {
+  const dispatch = useDispatch();
+  const { productAttributeList } = useSelector(({ catalog }) => catalog);
   const [openPopUp, setOpenPopUp] = useState(false);
+  useEffect(() => {
+    dispatch(onGetList("ProductAttribute", PRODUCTATTRIBUTE_LIST));
+  }, [dispatch]);
   const onChange = (page) => {
     setPage(page);
   };
@@ -26,13 +34,6 @@ export default function ProductAttributes() {
       title: "Other Name",
       dataIndex: "otherName",
       key: "otherName",
-    },
-    {
-      title: "Active",
-      dataIndex: "published",
-      key: "published",
-      render: (data) =>
-        data ? <Tag color="blue">Yes</Tag> : <Tag color="red">No</Tag>,
     },
 
     {
@@ -54,14 +55,17 @@ export default function ProductAttributes() {
   ];
   return (
     <AppContainer title="Product Attributes" type="bottom" fullView>
-      <AppListView
-        btntitle="Add Product Attribute"
-        onClick={() => setOpenPopUp(true)}
-        columns={columns}
-        data={[]}
-        page={page}
-        onChange={onChange}
-      />
+      {productAttributeList && (
+        <AppListView
+          btntitle="Add Product Attribute"
+          onClick={() => setOpenPopUp(true)}
+          columns={columns}
+          data={productAttributeList}
+          page={page}
+          onChange={onChange}
+          hasbackButton={true}
+        />
+      )}
       <AddProductAttribute openPopUp={openPopUp} setOpenPopUp={setOpenPopUp} />
     </AppContainer>
   );

@@ -1,4 +1,5 @@
-import Brands from "../../pages/brands";
+import React from "react";
+// import Brands from "../../pages/brands";
 import AddBrand from "../../pages/brands/AddBrand";
 import Category from "../../pages/category";
 import AddCategory from "../../pages/category/AddCategory";
@@ -7,6 +8,7 @@ import Product from "../../pages/product";
 import ProductSettings from "../../pages/productSettings";
 import ProductAttributes from "../../pages/productSettings/ProductAttributes";
 import TaxCategories from "../../pages/productSettings/TaxCategories";
+const Brands = React.lazy(()=> import('../../pages/brands'))
 
 export const routesList=[
 

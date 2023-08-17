@@ -5,7 +5,6 @@ export const onGetBrandList=()=>{
     return(dispatch)=>{
         dispatch({type: FETCH_START});
         httpApi.get('Brand').then((data)=>{
-          debugger;
             if(data.status === 200){
                 dispatch({type:FETCH_SUCCESS})
                 dispatch({type:BRAND_LIST, payload:data.data})

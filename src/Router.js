@@ -2,9 +2,6 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom';
 import AppLayout from './components/common/AppLayout';
 import HomePage from './pages/home';
-import Brands from './pages/brands';
-import AddBrand from './pages/brands/AddBrand';
-import BrandDetails from './pages/brands/BrandDetails';
 import { routesList } from './utility/helpers/RouterList';
 
 export default function Router() {

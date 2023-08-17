@@ -24,10 +24,7 @@ export default function AppSidebar({ collapsed }) {
       collapsed={collapsed}
     >
       <div className="app-logo">
-        <img
-          src="/images/logo.png"
-          style={{ height: "70px", padding: "10px" }}
-        />
+        <img src="/images/logo.png" style={{ height: "80px", width: "100%" }} />
       </div>
       <AppNavbar />
     </Sider>

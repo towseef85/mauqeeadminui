@@ -21,19 +21,20 @@ export default function ProductSettings() {
             <Card hoverable >
                 <Space direction='vertical' className='cart-content'>
                     <ApartmentOutlined />
-                    <h4>Product Atttributes</h4>
+                    <h4>Product Attributes</h4>
                 </Space>
             </Card>
             </Link>
         </Col>
         <Col span={6}>
-      
+        <Link to='/productsettings/producttag'>
             <Card  hoverable >
                 <Space direction='vertical' className='cart-content'>
                 <TagsOutlined />
                     <h4>Product Tags</h4>
                 </Space>
-            </Card>
+        </Card>
+            </Link>
         
         </Col>
         <Col span={6}>
